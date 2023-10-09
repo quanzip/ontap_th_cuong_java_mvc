@@ -1,0 +1,8 @@
+NOTE
+
+-Khi muốn Tải file về từ 1 trang thymeleaf, chỉ cần truyền tên file đó xuống backend, backend lấy  File đó, dùng hàm TransferTo(HttpServletResponse) | dùng Files.copy(file.getPath, HttpResponse) là xong.
+
+-Khi muốn đa ngôn ngữ trong spring: tạo 1 class implements WebMvcConfigurer hoặc ngay trong class main -> Khai báo các file message_vi, message_en.properties, và File MESSAGE.PROPERTIES  DÙNG CHUNG. Sau đó,  Cần thêm 2 Bean: 1 - LocalResolver(Nhớ Tên phương thức tạo Bean cần đặt chính xác như vậy hoặc Tên trong @Bean(localResolver)) Dùng để set Ngôn ngữ mặc định, 2 - LocaleChangeIntercpetor, dùng để quy định tham số nào trong request sẽ được dùng đẻ set ngôn ngữ.
+Sau đó cần add interceptor bằng phương thức ovverride addInterceptor tại nơi implement interface WebMvcOCnfigurer, chỉ cần chọn ngôn ngữ 1 lần, spring sẽ lưu NN đã chọn trong session, trong các request tiếp theo, không cần chỉ rõ tham số ngôn ngữ trong request.
+
+- khi sử dụng đa ngôn ngữ cho @Valid và thông báo lỗi với thuộc tính nào đó Chưa hợp lệ trong object truyền xuống, cần làm như sau: trên thuộc tính đó thêm  @NotNull(message = "${validation.birth-date-null}"), trong các file ngôn ngữ .properties, cần định nghĩa key-eror đó.

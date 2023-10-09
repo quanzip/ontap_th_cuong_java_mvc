@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add user information</title>
+</head>
+<body>
+<form action="/api/v1/departments" method="POST">
+    <div>
+        <label th:text="#{department.name}"></label>
+        <input type="text" placeholder="Department name" name="name">
+    </div>
+    <div>
+        <select name="userDTOS" id="" multiple>
+            <option th:each="user: ${users}" th:text="${user.name}" th:value="${user.id}"></option>
+        </select>
+    </div>
+    <button type="submit">Add</button>
+</form>
+</body>
+</html>

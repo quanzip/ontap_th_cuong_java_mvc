@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add user information</title>
+</head>
+<body>
+<form action="/api/v1/users" method="POST" enctype="multipart/form-data">
+    <div>
+        <label th:text="#{user.name}"></label>
+        <input type="text" placeholder="Student name" name="name">
+    </div>
+    <div>
+        <label th:text="#{user.age}"></label>
+        <input type="number" placeholder="Age" name="age">
+    </div>
+    <div>
+        <label th:text="#{user.address}"></label>
+        <input type="text" placeholder="Address" name="address">
+    </div>
+    <div>
+        <label th:text="#{user.birth-date}"></label>
+        <input type="datetime-local" name="birthDate" title="choose your date">
+    </div>
+    <div>
+        <label th:text="#{user.avatar}"></label>
+        <input type="file" placeholder="Student Image" name="multipartFile" accept="png,jpg,jpeg">
+    </div>
+    <button type="submit">Add</button>
+</form>
+</body>
+</html>

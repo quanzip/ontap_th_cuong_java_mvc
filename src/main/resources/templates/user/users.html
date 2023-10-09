@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>workshop of user</title>
+</head>
+<body>
+    <div>user list:   </div>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th th:span="2">Age</th>
+            <th th:span="2">Address</th>
+            <th th:span="2">Birthday</th>
+            <th th:span="2">Image Name</th>
+            <th th:span="2">Image view</th>
+            <th>Delete</th>
+            <th>Update</th>
+        </tr>
+        <tr th:each="u: ${students}">
+            <td th:text="${u.id}"></td>
+            <td th:text="${u.name}"></td>
+            <td th:text="${u.age}"></td>
+            <td th:text="${u.address}"></td>
+            <td th:text="${u.birthDate}"></td>
+            <td> <a th:href="@{'/api/v1/users/load-avatar?imgName='+${u.imgPath}}" th:text="${u.imgPath}"></a></td>
+            <td>
+                <img th:src="@{'/api/v1/users/load-avatar?imgName='+${u.imgPath}}" alt="Can not load image" style="max-width: 100px; max-height: 100px">
+            </td>
+            <td>
+                <a th:href="@{'/api/v1/users/' + ${u.id}}">Delete</a>
+                <a th:href="@{'/api/v1/users/show-form-edit/' + ${u.id}}">Update</a>
+            </td>
+        </tr>
+    </table>
+    <div>
+        <div>
+            <form action="/api/v1/users/show-add-user-form" method="get">
+                <button type="submit">Add User</button>
+            </form>
+        </div>
+
+        <div>
+            <form th:action="@{'/api/v1/departments'}">
+                <button type="submit">View departments</button>
+            </form>
+        </div>
+
+        <div>OR</div>
+        <form th:action="@{/api/v1/showLogin}" method="get">
+            <button type="submit">logout</button>
+        </form>
+    </div>
+</body>
+</html>

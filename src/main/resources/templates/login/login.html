@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lest login to our system</title>
+</head>
+<body>
+    <h3>Hi, i am Quanzip, I am learining spring again to consolidate my knowledge</h3>
+    <div>Hello <p th:text="${session.name}"></p></div>
+
+<!--  using in thymleaf: action="@{url}"    -->
+
+    <form method="post" action="/api/v1/login">
+        <label for="name">Your name</label>
+        <input id="name" type="text" name="name" placeholder="some thing...">
+        <label for="age">Your pass</label>
+        <input id=age type="text" name="passw" placeholder="password">
+        <button type="submit">Login</button>
+    </form>
+</body>
+</html>

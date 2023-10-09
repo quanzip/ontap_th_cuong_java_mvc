@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Departments</title>
+</head>
+<body>
+    <h4>List of department in system</h4>
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+<!--            <th>Users</th>-->
+<!--&lt;!&ndash;            <th>Hold</th>&ndash;&gt;-->
+<!--            <th>Action</th>-->
+        </tr>
+        <tr th:each="department : ${departments}">
+            <td th:value="${department.id}"></td>
+            <td th:value="${department.name}"></td>
+<!--            <td>-->
+<!--                <span th:each="user: ${department.users}" th:value="${user.name} + ','"></span>-->
+<!--            </td>-->
+<!--            <td th:value="${department.users.size}"></td>-->
+<!--            <td>1</td>-->
+<!--            <td>-->
+<!--                <form th:action="@{'/api/v1/departments/delete/' + ${department.id}}" method="get">-->
+<!--                    <button th:text="#{button.delete}"></button>-->
+<!--                </form>-->
+<!--                <form th:action="@{'/api/v1/departments/update/' + ${department.id}}" method="get">-->
+<!--                    <button th:text="#{button.update}"></button>-->
+<!--                </form>-->
+<!--            </td>-->
+        </tr>
+    </table>
+
+    <form action="/api/v1/departments/show-department-add-form" method="get">
+        <button type="submit">Add department</button>
+    </form>
+
+    <form action="/api/v1/users/list" method="get">
+        <button type="submit">Show users</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Awsome</title>
+</head>
+<body>
+    <h1>Hello <span th:text="${session.name}"></span></h1>
+    <div>your password is: <p th:utext="${session.passw}"></p></div>
+    <form method="get" th:action="@{/api/v1/users/list}">
+        <button type="submit">View user list</button>
+    </form>
+</body>
+</html>

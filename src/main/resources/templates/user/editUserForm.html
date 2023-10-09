@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add user information</title>
+</head>
+<body>
+<form action="/api/v1/users/update/action" method="post" enctype="multipart/form-data" th:object="${student}">
+    <div style="visibility: hidden">
+        <input th:name="id" th:field="*{id}">
+        <p th:errors="*{id}"></p>
+    </div>
+    <div>
+        <label th:text="#{user.name}"></label>
+        <input type="text" placeholder="Student name" name="name"  th:field="*{name}">
+        <p th:errors="*{name}"></p>
+    </div>
+    <div>
+        <label th:text="#{user.age}"></label>
+        <input type="number" placeholder="Age" name="age"  th:field="*{age}">
+        <p th:errors="*{age}"></p>
+    </div>
+    <div>
+        <label th:text="#{user.address}"></label>
+        <input type="text" placeholder="Address" name="address"  th:field="*{address}">
+        <p th:errors="*{address}"></p>
+    </div>
+    <div>
+        <label th:text="#{user.birth-date}"></label>
+        <input type="datetime-local" name="birthDate" title="choose your date" th:field="*{birthDate}">
+        <p th:errors="*{birthDate}"></p>
+    </div>
+    <div>
+        <label th:text="#{user.avatar}"></label>
+        <img th:src="@{'/api/v1/users/load-avatar?imgName=' + ${student.imgPath}}" alt="Student did not have avatar" style="max-width: 100px; max-height: 100px">
+        <input type="text" name="imgPath" style="visibility: hidden" th:field="*{imgPath}">
+        <p th:errors="*{imgPath}"></p>
+        <input type="file" name="multipartFile" accept="png,jpg,jpeg" title="Change avatar...">
+    </div>
+    <button type="submit">Save users</button>
+</form>
+</body>
+</html>
