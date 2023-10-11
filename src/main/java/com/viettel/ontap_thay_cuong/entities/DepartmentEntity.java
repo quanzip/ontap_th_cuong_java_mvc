@@ -27,7 +27,7 @@ public class DepartmentEntity {
 
     Short status;
 
-    @OneToMany(mappedBy = "department", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "department", fetch = FetchType.EAGER)
     List<UserEntity> users;
 
     public Short getStatus() {

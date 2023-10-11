@@ -52,6 +52,11 @@ public class UserServiceImpl implements UserService {
         return userRepositoryJpa.findAllByStatus(Constants.Status.ACTIVE);
     }
 
+     @Override
+    public List<UserEntity> getAllAvailableUser() {
+        return userRepositoryJpa.findAllByStatusAndDepartmentIsNull(Constants.Status.ACTIVE);
+    }
+
     @Override
     public Object editUser(UserDTO userDTO) throws Exception {
         Long userId;

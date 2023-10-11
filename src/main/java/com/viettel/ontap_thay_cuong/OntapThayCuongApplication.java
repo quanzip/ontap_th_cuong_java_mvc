@@ -16,7 +16,7 @@ import java.util.Locale;
 
 @SpringBootApplication
 @EnableConfigurationProperties(value = Application.class)
-@EnableJpaAuditing
+//@EnableJpaAuditing
 public class OntapThayCuongApplication implements WebMvcConfigurer {
 
 	public static void main(String[] args) {

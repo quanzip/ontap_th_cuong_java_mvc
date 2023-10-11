@@ -11,4 +11,5 @@ import java.util.Optional;
 public interface UserRepositoryJpa extends JpaRepository<UserEntity, Long> {
     List<UserEntity> findAllByStatus(short status);
     Optional<UserEntity> findByIdAndStatus(Long id, short status);
+    List<UserEntity> findAllByStatusAndDepartmentIsNull(short status);
 }

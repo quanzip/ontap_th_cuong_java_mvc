@@ -1,5 +1,6 @@
 package com.viettel.ontap_thay_cuong.controller;
 
+import com.viettel.ontap_thay_cuong.entities.DepartmentEntity;
 import com.viettel.ontap_thay_cuong.service.DepartmentService;
 import com.viettel.ontap_thay_cuong.service.UserService;
 import com.viettel.ontap_thay_cuong.service.dto.DepartmentDTO;
@@ -7,6 +8,8 @@ import com.viettel.ontap_thay_cuong.utils.Constants;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
 
 @Controller
 @RequestMapping(value = "/api")
@@ -22,14 +25,14 @@ public class DepartmentController {
     @GetMapping(value = "/v1/departments")
     public Object getAllDepartment(ModelAndView modelAndView){
         modelAndView.setViewName("department/search");
-        Object object = departmentService.getAllDepartmentByStatus(Constants.Status.ACTIVE);
-        modelAndView.addObject("departments", object);
+        List<DepartmentEntity> list = departmentService.getAllDepartmentByStatus(Constants.Status.ACTIVE);
+        modelAndView.addObject("departments", list);
         return modelAndView;
     }
 
     @GetMapping(value = "/v1/departments/show-department-add-form")
     public ModelAndView showFormAdd(ModelAndView modelAndView) {
-        Object object = userService.getAllUser();
+        Object object = userService.getAllAvailableUser();
         modelAndView.setViewName("department/add");
         modelAndView.addObject("users", object);
         return modelAndView;
@@ -50,10 +53,9 @@ public class DepartmentController {
     }
 
     @PostMapping(value = "/v1/departments")
-    public Object addDepartment(@ModelAttribute DepartmentDTO departmentDTO, ModelAndView modelAndView) {
+    public Object addDepartment(@ModelAttribute DepartmentDTO departmentDTO, ModelAndView modelAndView) throws Exception {
         this.departmentService.addDepartment(departmentDTO);
         modelAndView.setViewName("redirect:/api/v1/departments");
         return modelAndView;
-
     }
 }

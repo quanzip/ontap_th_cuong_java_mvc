@@ -74,4 +74,12 @@ public class UserEntity {
     public void setBirthDate(String birthDate) {
         this.birthDate = birthDate;
     }
+
+    public DepartmentEntity getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(DepartmentEntity department) {
+        this.department = department;
+    }
 }

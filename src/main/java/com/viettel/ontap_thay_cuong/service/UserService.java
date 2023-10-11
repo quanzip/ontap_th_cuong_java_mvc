@@ -11,4 +11,6 @@ public interface UserService {
     Object editUser(UserDTO userDTO) throws Exception;
     Object deleteUser(Long userId);
     UserDTO getStudentByIdAndStatus(long id, short status) throws Exception;
+
+    List<UserEntity> getAllAvailableUser();
 }
