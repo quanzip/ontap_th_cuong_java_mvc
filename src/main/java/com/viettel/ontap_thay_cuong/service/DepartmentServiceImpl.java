@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.NoResultException;
 import java.util.List;
 import java.util.Objects;
 
@@ -53,7 +54,7 @@ public class DepartmentServiceImpl implements DepartmentService{
     @Override
     @Transactional
     public Object deleteDepartmentById(long id) throws Exception {
-        DepartmentEntity departmentEntity = departmentRepository.findById(id).orElseThrow(()-> new Exception(ErrorApps.ENTITY_NOT_FOUND.getMessage()));
+        DepartmentEntity departmentEntity = departmentRepository.findById(id).orElseThrow(NoResultException::new);
         departmentEntity.setStatus(Constants.Status.INACTIVE);
         logger.info("Delete Departments..." + id);
         departmentRepository.save(departmentEntity);
@@ -66,7 +67,7 @@ public class DepartmentServiceImpl implements DepartmentService{
         if (Objects.isNull(id)) {
             throw new Exception(ErrorApps.OBJECT_CAN_NOT_BE_NULL.getMessage());
         }
-        DepartmentEntity departmentEntity = departmentRepository.findById(id).orElseThrow(()-> new Exception(ErrorApps.ENTITY_NOT_FOUND.getMessage()));
+        DepartmentEntity departmentEntity = departmentRepository.findById(id).orElseThrow(NoResultException::new);
         departmentEntity.setName(departmentDTO.getName());
         departmentRepository.save(departmentEntity);
         return departmentEntity;

@@ -1,6 +1,7 @@
 package com.viettel.ontap_thay_cuong.entities;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "UserEntity")
@@ -12,12 +13,23 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToMany(mappedBy = "users")
+    private List<Role> roles;
+
     private String name;
     private String address;
     private Integer age;
     private Short status;
     private String imgPath;
     private String birthDate;
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
 
     public Long getId() {
         return id;

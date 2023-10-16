@@ -10,7 +10,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "department")
-@EntityListeners(value = AuditingEntityListener.class)
+//@EntityListeners(value = AuditingEntityListener.class)
 public class DepartmentEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

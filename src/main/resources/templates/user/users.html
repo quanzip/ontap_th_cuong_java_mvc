@@ -15,8 +15,8 @@
             <th th:span="2">Birthday</th>
             <th th:span="2">Image Name</th>
             <th th:span="2">Image view</th>
-            <th>Delete</th>
-            <th>Update</th>
+            <th th:span="2">Roles</th>
+            <th>Actions</th>
         </tr>
         <tr th:each="u: ${students}">
             <td th:text="${u.id}"></td>
@@ -27,6 +27,9 @@
             <td> <a th:href="@{'/api/v1/users/load-avatar?imgName='+${u.imgPath}}" th:text="${u.imgPath}"></a></td>
             <td>
                 <img th:src="@{'/api/v1/users/load-avatar?imgName='+${u.imgPath}}" alt="Can not load image" style="max-width: 100px; max-height: 100px">
+            </td>
+            <td>
+                <span th:each="role: ${user.roles}" th:text="${role.name} + ','"></span>
             </td>
             <td>
                 <a th:href="@{'/api/v1/users/' + ${u.id}}">Delete</a>
