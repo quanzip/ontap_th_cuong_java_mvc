@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Roles</title>
@@ -7,7 +7,18 @@
 <body>
     <h3>List of role in system</h3>
     <table>
-
+        <tr>
+            <th>id</th>
+            <th>name</th>
+            <th>Action</th>
+        </tr>
+        <tr th:each="role : ${roles}">
+            <td th:text="${role.id}"></td>
+            <td th:text="${role.name}"></td>
+            <td>
+                <a th:href="@{'/api/v1/roles/update' + ${role.id}}" th:text="#{button.update}"></a>
+            </td>
+        </tr>
     </table>
 </body>
 </html>
