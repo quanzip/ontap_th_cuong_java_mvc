@@ -32,6 +32,12 @@
         <p th:errors="*{birthDate}"></p>
     </div>
     <div>
+        <label for="roles">Roles</label>
+        <select name="roles" id="roles">
+            <option th:each="role: ${user.roles}" th:text="${role.role}" th:value="${role.id}"></option>
+        </select>
+    </div>
+    <div>
         <label th:text="#{user.avatar}"></label>
         <img th:src="@{'/api/v1/users/load-avatar?imgName=' + ${student.imgPath}}" alt="Student did not have avatar" style="max-width: 100px; max-height: 100px">
         <input type="text" name="imgPath" style="visibility: hidden" th:field="*{imgPath}">
