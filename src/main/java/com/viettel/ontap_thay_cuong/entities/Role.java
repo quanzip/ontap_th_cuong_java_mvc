@@ -10,6 +10,8 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String role;
+
+    private Short status;
     
     @ManyToMany
     private List<UserEntity> users;
@@ -36,5 +38,13 @@ public class Role {
 
     public void setUsers(List<UserEntity> userEntities) {
         this.users = userEntities;
+    }
+
+    public Short getStatus() {
+        return status;
+    }
+
+    public void setStatus(Short status) {
+        this.status = status;
     }
 }

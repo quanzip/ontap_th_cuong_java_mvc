@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add role</title>
+    <style>
+        * {
+            margin: 0  auto;
+        }
+    </style>
+</head>
+<body>
+<form th:action="@{'/api/v1/roles'}" method="post">
+    <input type="text" name="role" placeholder="role name">
+    <button th:text="#{button.save}"></button>
+</form>
+</body>
+</html>

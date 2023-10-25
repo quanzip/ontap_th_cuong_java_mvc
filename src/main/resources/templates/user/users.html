@@ -50,6 +50,12 @@
             </form>
         </div>
 
+        <div>
+            <form th:action="@{'/api/v1/roles'}">
+                <button type="submit">View Roles</button>
+            </form>
+        </div>
+
         <div>OR</div>
         <form th:action="@{/api/v1/showLogin}" method="get">
             <button type="submit">logout</button>

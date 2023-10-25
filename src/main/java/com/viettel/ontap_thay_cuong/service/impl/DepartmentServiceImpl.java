@@ -1,9 +1,11 @@
-package com.viettel.ontap_thay_cuong.service;
+package com.viettel.ontap_thay_cuong.service.impl;
 
 import com.viettel.ontap_thay_cuong.entities.DepartmentEntity;
 import com.viettel.ontap_thay_cuong.entities.UserEntity;
 import com.viettel.ontap_thay_cuong.repository.DepartmentRepository;
 import com.viettel.ontap_thay_cuong.repository.UserRepositoryJpa;
+import com.viettel.ontap_thay_cuong.service.DepartmentService;
+import com.viettel.ontap_thay_cuong.service.MapstrucMapper;
 import com.viettel.ontap_thay_cuong.service.dto.DepartmentDTO;
 import com.viettel.ontap_thay_cuong.utils.Constants;
 import com.viettel.ontap_thay_cuong.utils.ErrorApps;
@@ -17,7 +19,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Service
-public class DepartmentServiceImpl implements DepartmentService{
+public class DepartmentServiceImpl implements DepartmentService {
     final Logger logger = LoggerFactory.getLogger(DepartmentServiceImpl.class);
 
     private final DepartmentRepository departmentRepository;
