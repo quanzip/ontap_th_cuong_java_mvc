@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface RoleService {
     List<RoleDTO> getAllActiveRoles(short active);
+
+    void addRole(RoleDTO roleDTO) throws Exception;
 }

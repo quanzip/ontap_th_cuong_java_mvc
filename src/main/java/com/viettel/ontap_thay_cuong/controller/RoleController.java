@@ -6,6 +6,7 @@ import com.viettel.ontap_thay_cuong.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -19,11 +20,18 @@ public class RoleController {
     private RoleService roleService;
 
     @GetMapping(value = "/v1/roles")
-    public ModelAndView viewRoles(ModelAndView modelAndView, String userName) {
+    public ModelAndView viewRoles(ModelAndView modelAndView) {
         List<RoleDTO> roleDTOList = roleService.getAllActiveRoles(Constants.Status.ACTIVE);
         modelAndView.addObject("roles", roleDTOList);
         modelAndView.setViewName("search");
         return modelAndView;
+    }
+
+    @PostMapping(value = "/v1/roles")
+    public Object addRole(RoleDTO roleDTO, ModelAndView modelAndView) {
+        roleService.addRole(roleDTO);
+        modelAndView.setViewName("redirect:/api/v1/roles");
+        return  modelAndView;
     }
 
 }

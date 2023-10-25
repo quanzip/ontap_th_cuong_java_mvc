@@ -2,7 +2,8 @@ package com.viettel.ontap_thay_cuong.utils;
 
 public enum ErrorApps {
     ENTITY_NOT_FOUND(4004,I18n.getMessage("entity.not_found")),
-    OBJECT_CAN_NOT_BE_NULL(4000,I18n.getMessage("object.can_not_be_null"));
+    OBJECT_CAN_NOT_BE_NULL(4000,I18n.getMessage("object.can_not_be_null")),
+    ROLE_EXISTED(4001,I18n.getMessage("role.existed"));
 
     private int status;
     private String message;

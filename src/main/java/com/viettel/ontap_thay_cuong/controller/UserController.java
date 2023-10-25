@@ -1,7 +1,9 @@
 package com.viettel.ontap_thay_cuong.controller;
 
 import com.viettel.ontap_thay_cuong.entities.UserEntity;
+import com.viettel.ontap_thay_cuong.service.RoleService;
 import com.viettel.ontap_thay_cuong.service.UserService;
+import com.viettel.ontap_thay_cuong.service.dto.RoleDTO;
 import com.viettel.ontap_thay_cuong.service.dto.UserDTO;
 import com.viettel.ontap_thay_cuong.utils.Constants;
 import com.viettel.ontap_thay_cuong.utils.Utils;
@@ -35,6 +37,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private RoleService roleService;
+
     @PostConstruct
     public void postConstruct() {
         userEntities = new ArrayList<>();
@@ -50,7 +55,7 @@ public class UserController {
 
     @GetMapping(value = "/v1/users/show-add-user-form")
     public ModelAndView showAddUserForm(ModelAndView modelAndView) {
-        List<RoleDTO> roleDTOS = roleService.getAllByStatus(Constants.Status.ACTIVE);
+        List<RoleDTO> roleDTOS = roleService.getAllActiveRoles(Constants.Status.ACTIVE);
         modelAndView.addObject("roles", roleDTOS);
         modelAndView.setViewName("user/addUserForm.html");
         return modelAndView;
