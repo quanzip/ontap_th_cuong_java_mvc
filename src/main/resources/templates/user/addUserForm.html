@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Add user information</title>
@@ -25,6 +25,13 @@
     <div>
         <label th:text="#{user.avatar}"></label>
         <input type="file" placeholder="Student Image" name="multipartFile" accept="png,jpg,jpeg">
+    </div>
+
+    <div>
+        <label for="roles">pick roles</label>
+        <select name="roles" id="roles" multiple>
+            <option th:each="role : ${roles}" th:value="role.id" th:text="role.role"></option>
+        </select>
     </div>
     <button type="submit">Add</button>
 </form>

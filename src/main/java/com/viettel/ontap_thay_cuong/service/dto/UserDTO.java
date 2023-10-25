@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.Range;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.*;
+import java.util.List;
 
 public class UserDTO {
     private Long id;

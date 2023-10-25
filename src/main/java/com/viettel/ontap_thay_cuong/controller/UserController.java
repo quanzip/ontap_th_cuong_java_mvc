@@ -50,6 +50,8 @@ public class UserController {
 
     @GetMapping(value = "/v1/users/show-add-user-form")
     public ModelAndView showAddUserForm(ModelAndView modelAndView) {
+        List<RoleDTO> roleDTOS = roleService.getAllByStatus(Constants.Status.ACTIVE);
+        modelAndView.addObject("roles", roleDTOS);
         modelAndView.setViewName("user/addUserForm.html");
         return modelAndView;
     }
