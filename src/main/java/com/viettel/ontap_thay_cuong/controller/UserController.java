@@ -5,28 +5,21 @@ import com.viettel.ontap_thay_cuong.service.RoleService;
 import com.viettel.ontap_thay_cuong.service.UserService;
 import com.viettel.ontap_thay_cuong.service.dto.RoleDTO;
 import com.viettel.ontap_thay_cuong.service.dto.UserDTO;
+import com.viettel.ontap_thay_cuong.service.dto.UserRoleDTO;
 import com.viettel.ontap_thay_cuong.utils.Constants;
 import com.viettel.ontap_thay_cuong.utils.Utils;
-import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.web.servlet.WebMvcProperties;
-import org.springframework.util.FileCopyUtils;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.View;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @RestController
 @RequestMapping(value = "/api")
@@ -69,7 +62,7 @@ public class UserController {
     }
 
     @GetMapping(value = "/v1/users/{userId}")
-    public ModelAndView deleteUserById(@PathVariable Long userId){
+    public ModelAndView deleteUserById(@PathVariable Long userId) {
         userService.deleteUser(userId);
         ModelAndView view1 = new ModelAndView();
         view1.setViewName("redirect:/api/v1/users/list");
@@ -85,7 +78,7 @@ public class UserController {
     }
 
     @GetMapping(value = "/v1/users/load-avatar")
-    public void loadAvatar(@RequestParam(value = "imgName") String imgName,  HttpServletResponse httpServletResponse) throws IOException {
+    public void loadAvatar(@RequestParam(value = "imgName") String imgName, HttpServletResponse httpServletResponse) throws IOException {
         if (!imgName.isEmpty()) {
             File file = new File(Utils.getStorageFolder(), imgName);
             if (file.exists() && !file.isDirectory()) {
@@ -99,8 +92,12 @@ public class UserController {
     @GetMapping(value = "/v1/users/show-form-edit/{userId}")
     public ModelAndView showFormToEditUser(ModelAndView modelAndView, @PathVariable(value = "userId") long userId) throws Exception {
         UserDTO student = userService.getStudentByIdAndStatus(userId, Constants.Status.ACTIVE);
+
+        List<UserRoleDTO> roleDTOS = roleService.getRoleForUserId(userId);
+        modelAndView.addObject("roles", roleDTOS);
+
         modelAndView.addObject("student", student);
-      modelAndView.setViewName("user/editUserForm");
-      return modelAndView;
+        modelAndView.setViewName("user/editUserForm");
+        return modelAndView;
     }
 }

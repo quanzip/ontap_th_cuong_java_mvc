@@ -1,5 +1,8 @@
 package com.viettel.ontap_thay_cuong.entities;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -13,7 +16,16 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToMany(mappedBy = "users")
+    // Trong lúc thêm mới 1 user, ta truyền 1 list các role ID vào để
+    // set role cho user mới này, nhưng những role này đã tồn tại sẵnS trong bảng role rồi
+    // nên nếu dùng loại CascadeType.all (user mới đc thêm và đồng thời thêm các role khi chúng chưa đc thêm) thì sẽ gây lỗi
+    // do  những role ID đó đã tồn tại rồi mà ta vẫn cố thêm nữa, thay vì dùng loại CascadeType.ALL,
+    // ta dùng CascadeType.Merge thì Db sẽ hiểu ta sẽ thêm mới 1 user và merge những roleId đó đã tồn tại cho user mới này.
+    @ManyToMany()
+    @JoinTable(name = "user_role",
+            joinColumns = @JoinColumn(name = "userId"),
+            inverseJoinColumns = @JoinColumn(name = "roleId"))
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Role> roles;
 
     private String name;

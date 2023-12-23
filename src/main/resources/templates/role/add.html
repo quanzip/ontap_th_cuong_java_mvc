@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Add role</title>
@@ -12,7 +12,14 @@
 <body>
 <form th:action="@{'/api/v1/roles'}" method="post">
     <input type="text" name="role" placeholder="role name">
-    <button th:text="#{button.save}"></button>
+    <div>
+        <label for="assign-user">assign for users</label>
+        <select name="userIds" id="assign-user" multiple>
+            <option th:each="user : ${users}" th:text="${user.name}" th:value="${user.id}"></option>
+        </select>
+    </div>
+    <button type="submit" th:text="#{button.save}"></button>
+    <button type="button" onclick="history.back()">Cancel</button>
 </form>
 </body>
 </html>

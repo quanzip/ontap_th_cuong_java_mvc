@@ -14,7 +14,17 @@ public class DepartmentDTO {
 
     Date updateAt;
 
-    List<String> userDTOS;
+    List<Long> userDTOS;
+
+    short status;
+
+    public short getStatus() {
+        return status;
+    }
+
+    public void setStatus(short status) {
+        this.status = status;
+    }
 
     public Long getId() {
         return id;
@@ -48,11 +58,11 @@ public class DepartmentDTO {
         this.updateAt = updateAt;
     }
 
-    public List<String> getUserDTOS() {
+    public List<Long> getUserDTOS() {
         return userDTOS;
     }
 
-    public void setUserDTOS(List<String> userDTOS) {
+    public void setUserDTOS(List<Long> userDTOS) {
         this.userDTOS = userDTOS;
     }
 }

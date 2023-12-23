@@ -1,7 +1,11 @@
 package com.viettel.ontap_thay_cuong.entities;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "role")
@@ -12,8 +16,8 @@ public class Role {
     private String role;
 
     private Short status;
-    
-    @ManyToMany
+
+    @ManyToMany(mappedBy = "roles")
     private List<UserEntity> users;
 
     public Long getId() {

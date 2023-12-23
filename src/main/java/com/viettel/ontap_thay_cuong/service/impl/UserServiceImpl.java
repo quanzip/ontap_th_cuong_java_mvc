@@ -1,13 +1,18 @@
 package com.viettel.ontap_thay_cuong.service.impl;
 
+import com.viettel.ontap_thay_cuong.entities.Role;
 import com.viettel.ontap_thay_cuong.entities.UserEntity;
+import com.viettel.ontap_thay_cuong.repository.RoleRepositoryJpa;
 import com.viettel.ontap_thay_cuong.repository.UserRepositoryJpa;
-import com.viettel.ontap_thay_cuong.service.MapstrucMapper;
 import com.viettel.ontap_thay_cuong.service.UserService;
+import com.viettel.ontap_thay_cuong.service.dto.RoleDTO;
 import com.viettel.ontap_thay_cuong.service.dto.UserDTO;
+import com.viettel.ontap_thay_cuong.service.mapper.RoleMapper;
+import com.viettel.ontap_thay_cuong.service.mapper.UserMapper;
 import com.viettel.ontap_thay_cuong.utils.Constants;
 import com.viettel.ontap_thay_cuong.utils.ErrorApps;
 import com.viettel.ontap_thay_cuong.utils.Utils;
+import org.mapstruct.Mapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +22,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -25,22 +33,42 @@ public class UserServiceImpl implements UserService {
     private UserRepositoryJpa userRepositoryJpa;
 
     @Autowired
-    private MapstrucMapper mapper;
+    private UserMapper userMapper;
+
+    @Autowired
+    private RoleRepositoryJpa roleRepositoryJPA;
+
+    @Autowired
+    private RoleMapper roleMapper;
 
     @Override
+    @Transactional
     public Object saveUser(UserDTO userDTO) {
-        UserEntity userEntity = mapper.toUserEntity(userDTO);
+        UserEntity userEntity = userMapper.toEntity(userDTO);
         if (userEntity != null) {
             userEntity.setStatus(Constants.Status.ACTIVE);
+            List<Long> roleDTOS = userDTO.getRoleIds();
+            if (roleDTOS != null) {
+                final Function<Long, Role> idToEntity = id -> {
+                    Role role = new Role();
+                    role.setId(id);
+                    return role;
+                };
+                List<Role> roles = roleDTOS.stream().map(idToEntity).collect(Collectors.toList());
+                userEntity.setRoles(roles);
+            }
+
             MultipartFile file = userDTO.getMultipartFile();
             String fileName;
             if (file != null && (fileName = file.getOriginalFilename()) != null) {
-                fileName = Utils.getFileNameFormatted(fileName);
+                fileName = UUID.randomUUID().toString() + "_" + fileName;
                 userEntity.setImgPath(fileName);
                 userRepositoryJpa.save(userEntity);
 
                 String storageFolder = Utils.getStorageFolder();
                 Utils.saveFileToFolder(file, storageFolder, fileName);
+            } else {
+                userRepositoryJpa.save(userEntity);
             }
         }
         logger.info("Saved user successfully!");
@@ -52,7 +80,7 @@ public class UserServiceImpl implements UserService {
         return userRepositoryJpa.findAllByStatus(Constants.Status.ACTIVE);
     }
 
-     @Override
+    @Override
     public List<UserEntity> getAllAvailableUser() {
         return userRepositoryJpa.findAllByStatusAndDepartmentIsNull(Constants.Status.ACTIVE);
     }
@@ -72,7 +100,7 @@ public class UserServiceImpl implements UserService {
         String storageFolder = Utils.getStorageFolder();
         UserEntity newEntity;
         if (file != null && (newImgFileName = file.getOriginalFilename()) != null && !file.getOriginalFilename().isEmpty()) {
-            newImgFileName = Utils.getFileNameFormatted(newImgFileName);
+            newImgFileName = UUID.randomUUID().toString() + "_" + newImgFileName;
             userDTO.setImgPath(newImgFileName);
 
             oldEntity.setName(userDTO.getName());
@@ -111,6 +139,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO getStudentByIdAndStatus(long id, short status) throws Exception {
-        return mapper.toUserDTO(userRepositoryJpa.findByIdAndStatus(id, status).orElseThrow(() -> new Exception(ErrorApps.ENTITY_NOT_FOUND.getMessage())));
+        return userMapper.toDTO(userRepositoryJpa.findByIdAndStatus(id, status).orElseThrow(() -> new Exception(ErrorApps.ENTITY_NOT_FOUND.getMessage())));
     }
 }

@@ -10,15 +10,29 @@
         <tr>
             <th>id</th>
             <th>name</th>
+            <th>User By</th>
             <th>Action</th>
         </tr>
+
+        <form th:action="@{'/api/v1/show-form-add-role'}"><button th:text="#{button.add}"></button></form>
+
         <tr th:each="role : ${roles}">
             <td th:text="${role.id}"></td>
-            <td th:text="${role.name}"></td>
+            <td th:text="${role.role}"></td>
             <td>
-                <a th:href="@{'/api/v1/roles/update' + ${role.id}}" th:text="#{button.update}"></a>
+                <span th:if="${role.userIds} == null">0</span>
+                <span th:if="${role.userIds} != null" th:text="${#lists.size(role.userIds)}"></span>
+            </td>
+            <td>
+                <a th:href="@{'/api/v1/roles/delete/by-roleId/' + ${role.id}}" th:text="#{button.delete}"></a>
+                <a th:href="@{'/api/v1/roles/update/' + ${role.id}}" th:text="#{button.update}"></a>
             </td>
         </tr>
     </table>
+    <div>
+        <form th:action="@{/api/v1/users/list}" method="get">
+            <button type="submit">Back to user list</button>
+        </form>
+    </div>
 </body>
 </html>

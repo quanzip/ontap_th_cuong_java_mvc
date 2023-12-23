@@ -6,7 +6,17 @@ public class RoleDTO {
     private Long id;
     private String role;
 
-    private List<UserDTO> users;
+    private Short status;
+
+    public Short getStatus() {
+        return status;
+    }
+
+    public void setStatus(Short status) {
+        this.status = status;
+    }
+
+    private List<Long> userIds;
 
     public Long getId() {
         return id;
@@ -24,11 +34,11 @@ public class RoleDTO {
         this.role = role;
     }
 
-    public List<UserDTO> getUsers() {
-        return users;
+    public List<Long> getUserIds() {
+        return userIds;
     }
 
-    public void setUsers(List<UserDTO> users) {
-        this.users = users;
+    public void setUserIds(List<Long> userIds) {
+        this.userIds = userIds;
     }
 }

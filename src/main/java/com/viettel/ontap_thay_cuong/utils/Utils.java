@@ -1,19 +1,14 @@
 package com.viettel.ontap_thay_cuong.utils;
 
-import com.viettel.ontap_thay_cuong.entities.UserEntity;
-import org.mapstruct.Named;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Objects;
-import java.util.UUID;
 
 @Configuration
 public class Utils {
@@ -45,10 +40,6 @@ public class Utils {
         }
     }
 
-    public static String getFileNameFormatted(String fileName) {
-        return UUID.randomUUID().toString() + "_" + fileName;
-    }
-
     public static String getStorageFolder() {
         return "." + File.separator + application.getImageFolder();
     }
@@ -58,13 +49,5 @@ public class Utils {
         if (file.exists()) {
             logger.info("File " + oldImage + " deleting... " + file.delete());
         }
-    }
-
-    @Named(value = "stringIdToUser")
-    public static UserEntity stringIdToUser(String id){
-        if (Objects.isNull(id) || id.isEmpty()) return null;
-        UserEntity userEntity = new UserEntity();
-        userEntity.setId(Long.parseLong(id));
-        return userEntity;
     }
 }

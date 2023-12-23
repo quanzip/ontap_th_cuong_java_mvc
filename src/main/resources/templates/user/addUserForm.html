@@ -29,8 +29,8 @@
 
     <div>
         <label for="roles">pick roles</label>
-        <select name="roles" id="roles" multiple>
-            <option th:each="role : ${roles}" th:value="role.id" th:text="role.role"></option>
+        <select name="roleIds" id="roles" multiple>
+            <option th:each="role,iter : ${roles}" th:value="${role.id}" th:text="${role.role}"></option>
         </select>
     </div>
     <button type="submit">Add</button>

@@ -5,8 +5,8 @@ import com.viettel.ontap_thay_cuong.entities.UserEntity;
 import com.viettel.ontap_thay_cuong.repository.DepartmentRepository;
 import com.viettel.ontap_thay_cuong.repository.UserRepositoryJpa;
 import com.viettel.ontap_thay_cuong.service.DepartmentService;
-import com.viettel.ontap_thay_cuong.service.MapstrucMapper;
 import com.viettel.ontap_thay_cuong.service.dto.DepartmentDTO;
+import com.viettel.ontap_thay_cuong.service.mapper.DepartmentMapper;
 import com.viettel.ontap_thay_cuong.utils.Constants;
 import com.viettel.ontap_thay_cuong.utils.ErrorApps;
 import org.slf4j.Logger;
@@ -23,13 +23,13 @@ public class DepartmentServiceImpl implements DepartmentService {
     final Logger logger = LoggerFactory.getLogger(DepartmentServiceImpl.class);
 
     private final DepartmentRepository departmentRepository;
-    private final MapstrucMapper mapper;
     private final UserRepositoryJpa userRepository;
+    private final DepartmentMapper departmentMapper;
 
-    public DepartmentServiceImpl(DepartmentRepository departmentRepository, MapstrucMapper mapper, UserRepositoryJpa userRepository) {
+    public DepartmentServiceImpl(DepartmentRepository departmentRepository, DepartmentMapper departmentMapper, UserRepositoryJpa userRepository) {
         this.departmentRepository = departmentRepository;
         this.userRepository = userRepository;
-        this.mapper = mapper;
+        this.departmentMapper = departmentMapper;
     }
 
     @Override
@@ -40,7 +40,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public void addDepartment(DepartmentDTO departmentDTO) throws Exception {
-        DepartmentEntity departmentEntity = mapper.toDepartmentEntity(departmentDTO);
+        DepartmentEntity departmentEntity = this.departmentMapper.toEntity(departmentDTO);
         departmentEntity.setStatus(Constants.Status.ACTIVE);
         logger.info("Add Departments...");
         departmentRepository.save(departmentEntity);

@@ -29,7 +29,17 @@ public class UserDTO {
     @NotNull(message = "${validation.birth-date-null}")
     private String birthDate;
 
+    private List<Long> roleIds;
+
     private MultipartFile multipartFile;
+
+    public List<Long> getRoleIds() {
+        return roleIds;
+    }
+
+    public void setRoleIds(List<Long> roleIds) {
+        this.roleIds = roleIds;
+    }
 
     public short getStatus() {
         return status;

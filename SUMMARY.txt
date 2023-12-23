@@ -7,3 +7,6 @@ Sau đó cần add interceptor bằng phương thức ovverride addInterceptor t
 + khi sử dụng đa ngôn ngữ cho @Valid và thông báo lỗi với thuộc tính nào đó Chưa hợp lệ trong object truyền xuống, cần làm như sau: trên thuộc tính đó thêm  @NotNull(message = "${validation.birth-date-null}"), trong các file ngôn ngữ .properties, cần định nghĩa key-eror đó.
 + khi sử dụng đa ngôn ngữ để trả ra front-end theo ngôn ngữ font-end đã chọn, ta định nghĩa lớp I18n, trong đó có các phương thức getMessage(erorCode, param)
 sau dó định nghĩa enum ErrorApps có 2 thuộc tính: code, message, có chứa các mã lỗi dạng (status, message), ex ITEM_NOT_FOUND(4004, I18n.getMessage(properties code)), khi văng lỗi ra FE: throw new Exception(ErrorApps.ITEM_NOT_FOUND.getMessage()) => sẽ trả ra FE lỗi theo ngôn ngũ user đã chọn kết hợp với các thành phần cần thiết để đa ngôn ngữ bên trên.
+
+
+- thuộc tính JPA: mapped By luôn nằm ở bảng phụ: user-role*, people-ticket*

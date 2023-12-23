@@ -11,5 +11,5 @@ import java.util.Optional;
 public interface RoleRepositoryJpa extends JpaRepository<Role, Long> {
     List<Role> findAllByStatus(Short status);
 
-    Optional<List<Role>> findAllByRoleAndStatus(String role, short active);
+    List<Role> findAllByRoleAndStatus(String role, short active);
 }

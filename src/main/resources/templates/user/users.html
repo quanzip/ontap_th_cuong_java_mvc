@@ -29,7 +29,7 @@
                 <img th:src="@{'/api/v1/users/load-avatar?imgName='+${u.imgPath}}" alt="Can not load image" style="max-width: 100px; max-height: 100px">
             </td>
             <td>
-                <span th:each="role: ${user.roles}" th:text="${role.name} + ','"></span>
+                <span th:each="role: ${u.roles}" th:text="${role.role} + ','"></span>
             </td>
             <td>
                 <a th:href="@{'/api/v1/users/' + ${u.id}}">Delete</a>
